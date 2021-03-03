@@ -1,20 +1,33 @@
 {
-    "name": "laravel/laravel",
+    "name": "pavel-shevchenko/loan-payments-aggregator",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Loan payments calculator and aggregator with the ability to calculate the schedule of annuity, as well as differentiated payments.",
     "keywords": [
-        "framework",
-        "laravel"
+        "php8",
+        "laravel",
+        "lighthouse",
+        "graphql",
+        "apollo",
+        "vue3",
+        "composition",
+        "typescript"
     ],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Pavel Shevchenko",
+            "email": "e-rider@mail.ru",
+            "role": "Developer"
+        }
+    ],
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
+        "pavel-shevchenko/php8-loan-payments-calc": "*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "mhiggster/laravel-mortgage": "^0.1.1",
         "mll-lab/laravel-graphql-playground": "^2.5",
         "nuwave/lighthouse": "^5.3"
     },
@@ -22,6 +35,7 @@
         "barryvdh/laravel-ide-helper": "^2.9",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
+        "haydenpierce/class-finder": "^0.4.3",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
@@ -41,6 +55,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
+            "PavelShev\\LoanCalculator\\": "vendor/pavel-shevchenko/php8-loan-payments-calc/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }

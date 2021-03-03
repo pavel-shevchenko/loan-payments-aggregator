@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class MortgageOfferRateDiscount extends Migration
+class CreateMortgageOfferRateDiscountPivot extends Migration
 {
     /**
      * Run the migrations.
@@ -15,18 +15,20 @@ class MortgageOfferRateDiscount extends Migration
     {
         Schema::create('mortgage_offer_rate_discount', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('project_id');
-            $table->foreign('project_id')
+            $table->unsignedBigInteger('mortgage_offer_id');
+            $table->foreign('mortgage_offer_id')
                 ->references('id')
-                ->on('projects')
+                ->on('mortgage_offers')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('specialization_id');
-            $table->foreign('specialization_id')
+            $table->unsignedBigInteger('rate_discount_id');
+            $table->foreign('rate_discount_id')
                 ->references('id')
-                ->on('specializations')
+                ->on('rate_discounts')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->unique(['mortgage_offer_id', 'rate_discount_id'], 'unique_index_offer_discount');
+            $table->unsignedDecimal('reduction_value', $totalDigits = 5, $decimalDigits = 2);
         });
     }
 

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BankFactory extends Factory
 {
+
     /**
      * The name of the factory's corresponding model.
      *
@@ -22,7 +23,8 @@ class BankFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->company,
         ];
     }
+
 }

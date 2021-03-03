@@ -1,11 +1,12 @@
 <?php
 
-namespace Mortgage\Facades;
+namespace App\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 class Differentiated extends Facade
 {
+
     /**
      * Get the registered name of the component.
      *
@@ -13,6 +14,7 @@ class Differentiated extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'Differentiated';
+        return 'differentiated';
     }
+
 }

@@ -3,10 +3,13 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+directive @spread on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
 
 type Query {
     users: [User!]! @paginate(defaultCount: 10)
     user(id: ID @eq): User @find
+    banks: [Bank!]! @paginate(defaultCount: 100)
+    bank(id: ID @eq): Bank @find
 }
 
 type User {
@@ -15,4 +18,58 @@ type User {
     email: String!
     created_at: DateTime!
     updated_at: DateTime!
+}
+
+type Bank {
+    name: String!
+    mortgageOffers: [MortgageOffer!]!
+}
+
+type MortgageOffer {
+    type: String!
+    cost_min: Int!
+    cost_step: Int!
+    cost_max: Int!
+    init_loan_min: Int!
+    init_loan_step: Int!
+    term_min: Int!
+    term_max: Int!
+    loanPurposes: [LoanPurpose!]
+    rateDiscounts: [RateDiscount!]
+}
+
+type LoanPurpose {
+    title: String!
+    purposeDetails: OffersPurposesPivot
+}
+
+type OffersPurposesPivot {
+    base_rate: Float!
+}
+
+type RateDiscount {
+    title: String!
+    discountDetails: OffersDiscountsPivot
+}
+
+type OffersDiscountsPivot {
+    reduction_value: Float!
+}
+
+type Mutation {
+    schedule(input: CalculateSchedule! @spread): [SchedulePayment!]!
+}
+
+input CalculateSchedule {
+    type: String!
+    interestRate: Float!
+    loanAmount: Int!
+    loanTerm: Int!
+}
+
+type SchedulePayment {
+    monthlyPayment: Float!
+    interestDebtPay: Float!
+    principalDebtPay: Float!
+    monthlyLoanAmount: Float!
 }

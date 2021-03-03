@@ -11,16 +11,16 @@ query {
                 init_loan_step
                 term_min
                 term_max
-                rateDiscounts {
-                    title
-                    discountDetails {
-                        reduction_value
-                    }
-                }
                 loanPurposes {
                     title
                     purposeDetails {
                         base_rate
+                    }
+                }
+                rateDiscounts {
+                    title
+                    discountDetails {
+                        reduction_value
                     }
                 }
             }

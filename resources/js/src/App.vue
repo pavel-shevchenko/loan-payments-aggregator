@@ -1,10 +1,15 @@
 <template>
   <ion-page>
-    <router-view/>
+    <ion-content>
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"/>
+      </keep-alive>
+      <router-view v-if="!$route.meta.keepAlive"/>
+    </ion-content>
 
-    <ion-segment @ionChange="segmentChanged($event)" value="input_values" color="secondary">
-      <ion-segment-button value="input_values">
-        <ion-label>Input values</ion-label>
+    <ion-segment @ionChange="pageChanged($event)" value="parameters">
+      <ion-segment-button value="parameters">
+        <ion-label>Parameters</ion-label>
       </ion-segment-button>
       <ion-segment-button value="calculate">
         <ion-label>Calculate</ion-label>
@@ -34,10 +39,14 @@ import {
   },
 })
 export default class App extends Vue {
-  consoleTitle = 'Segment changed'
-
-  segmentChanged(ev: CustomEvent) {
-    console.log(this.consoleTitle, ev);
+  pageChanged(e: CustomEvent) {
+    if (e.detail.value === 'parameters') {
+      this.$router.push({ name: 'InputValues' });
+    } else if (e.detail.value === 'calculate') {
+      this.$router.push({ name: 'Calculate' });
+    } else if (e.detail.value === 'payment_schedule') {
+      this.$router.push({ name: 'Schedule' });
+    }
   }
 }
 </script>

@@ -15,6 +15,7 @@ class CreateRateDiscountsTable extends Migration
     {
         Schema::create('rate_discounts', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
             $table->timestamps();
         });
     }

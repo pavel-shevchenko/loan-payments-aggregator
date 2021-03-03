@@ -1,24 +1,37 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import InputValues from './views/InputValues.vue';
+import Calculate from './views/Calculate.vue';
+import Schedule from './views/Schedule.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'InputValues',
     component: InputValues,
+    meta: {
+      // keepAlive: true,
+    },
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ './views/InputValues.vue'),
+    path: '/calculate',
+    name: 'Calculate',
+    component: Calculate,
+    meta: {
+      // keepAlive: true,
+    },
+  },
+  {
+    path: '/schedule',
+    name: 'Schedule',
+    component: Schedule,
+    meta: {
+      // keepAlive: true,
+    },
   },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(process.env.VUE_BASE_URL),
+  history: createWebHashHistory('/'),
   routes,
 });
 

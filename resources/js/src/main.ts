@@ -25,7 +25,7 @@ import '@ionic/vue/css/display.css';
 import './theme/variables.css';
 
 const defaultClient = new ApolloClient({
-  uri: process.env.GRAPHQL_URL,
+  uri: '/graphql',
   cache: new InMemoryCache(),
 });
 

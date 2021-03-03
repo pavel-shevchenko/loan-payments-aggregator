@@ -15,6 +15,7 @@ class CreateLoanPurposesTable extends Migration
     {
         Schema::create('loan_purposes', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
             $table->timestamps();
         });
     }

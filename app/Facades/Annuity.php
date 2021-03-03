@@ -1,11 +1,12 @@
 <?php
 
-namespace Mortgage\Facades;
+namespace App\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 class Annuity extends Facade
 {
+
     /**
      * Get the registered name of the component.
      *
@@ -13,6 +14,7 @@ class Annuity extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'Annuity';
+        return 'annuity';
     }
+
 }

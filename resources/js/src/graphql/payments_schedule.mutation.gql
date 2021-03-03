@@ -1,7 +1,7 @@
-mutation {
+mutation schedule($type: String!, $interestRate: Float!, $loanAmount: Int!, $loanTerm: Int!) {
     schedule(
         input: {
-            type: "$type"
+            type: $type
             interestRate: $interestRate
             loanAmount: $loanAmount
             loanTerm: $loanTerm

@@ -1,6 +1,6 @@
 ## About This Project
 
-This is a mortgage calculator and aggregator build using Laravel, Vue 3 with focus on Composition API, GraphQL with Lighthouse + Apollo Client 3 and Typescript code in AirBnB style. The project also uses the Ionic UI Components (mobile app framework).
+This is a mortgage calculator and aggregator with the ability to view the schedule of annuity, as well as differentiated loan payments. It is build using Laravel, Vue 3 with focus on Composition API, GraphQL with Lighthouse + Apollo Client 3 and Typescript code in AirBnB style. The project also uses the Ionic UI Components (mobile app framework).
 
 ## Requirements
 
@@ -16,3 +16,7 @@ Installation requires Composer and NPM.
 - Generate app key by running php artisan key:generate from application directory.
 - Install database tables by running php artisan migrate from application directory.
 - Go to resources/js subdirectory and run npm install, then run npm run build
+
+## DB Schema
+
+![DB Schema](DB_schema.png "DB Schema")

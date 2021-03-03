@@ -2,10 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class OffersDiscountsPivot extends Model
+class OffersDiscountsPivot extends Pivot
 {
-    use HasFactory;
+
+    protected $table = 'mortgage_offer_rate_discount';
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'reduction_value' => 'float',
+    ];
+
 }

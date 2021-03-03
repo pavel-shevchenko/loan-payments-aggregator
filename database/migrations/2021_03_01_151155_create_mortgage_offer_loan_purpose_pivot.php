@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class MortgageOfferLoanPurpose extends Migration
+class CreateMortgageOfferLoanPurposePivot extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,22 @@ class MortgageOfferLoanPurpose extends Migration
      */
     public function up()
     {
-        Schema::create('project_specialization', function (Blueprint $table) {
+        Schema::create('mortgage_offer_loan_purpose', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('project_id');
-            $table->foreign('project_id')
+            $table->unsignedBigInteger('mortgage_offer_id');
+            $table->foreign('mortgage_offer_id')
                 ->references('id')
-                ->on('projects')
+                ->on('mortgage_offers')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('specialization_id');
-            $table->foreign('specialization_id')
+            $table->unsignedBigInteger('loan_purpose_id');
+            $table->foreign('loan_purpose_id')
                 ->references('id')
-                ->on('specializations')
+                ->on('loan_purposes')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->unique(['mortgage_offer_id', 'loan_purpose_id'], 'unique_index_offer_purpose');
+            $table->unsignedDecimal('base_rate', $totalDigits = 5, $decimalDigits = 2);
         });
     }
 
@@ -37,6 +39,6 @@ class MortgageOfferLoanPurpose extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_specialization');
+        Schema::dropIfExists('mortgage_offer_loan_purpose');
     }
 }

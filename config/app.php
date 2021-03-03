@@ -226,7 +226,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Annuity' => App\Facades\Annuity::class,
+        'Differentiated' => App\Facades\Differentiated::class,
 
     ],
+
+    'loan_payment_types' => ['annuity', 'differentiated']
 
 ];

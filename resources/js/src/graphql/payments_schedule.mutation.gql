@@ -1,0 +1,15 @@
+mutation {
+    schedule(
+        input: {
+            type: "$type"
+            interestRate: $interestRate
+            loanAmount: $loanAmount
+            loanTerm: $loanTerm
+        }
+    ) {
+        monthlyPayment
+        interestDebtPay
+        principalDebtPay
+        monthlyLoanAmount
+    }
+}

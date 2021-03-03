@@ -1,0 +1,29 @@
+query {
+    banks {
+        data {
+            name
+            mortgageOffers {
+                type
+                cost_min
+                cost_step
+                cost_max
+                init_loan_min
+                init_loan_step
+                term_min
+                term_max
+                rateDiscounts {
+                    title
+                    discountDetails {
+                        reduction_value
+                    }
+                }
+                loanPurposes {
+                    title
+                    purposeDetails {
+                        base_rate
+                    }
+                }
+            }
+        }
+    }
+}

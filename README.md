@@ -18,6 +18,6 @@ Installation requires Composer and NPM.
 - Then seeding the database by running `php artisan db:seed` command.
 - Go to the `resources/js` subdirectory and run the `npm install` command in it, then run `npm run build`. Congrats, the aggregator is now ready to go!
 
-## DB Schema
+## Database schema
 
 ![DB Schema](DB_schema.png "DB Schema")

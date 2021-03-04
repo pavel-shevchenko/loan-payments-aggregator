@@ -5,6 +5,7 @@ This is a mortgage calculator and aggregator with the ability to view the schedu
 ## Requirements
 
 This package must be installed on either a Laravel Homestead/Valet enabled webserver, or a LAMP/LEMP instance that meets Laravel's minimum requirements.
+You will also need a PHP version no lower than 8.0.
 
 Installation requires Composer and NPM.
 

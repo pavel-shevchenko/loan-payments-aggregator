@@ -15,6 +15,7 @@ Installation requires Composer and NPM.
 - Duplicate .env.example and rename copy to .env. Update configuration values as required.
 - Generate app key by running php artisan key:generate from application directory.
 - Install database tables by running php artisan migrate from application directory.
+- Then seeding the database by running php artisan db:seed command.
 - Go to resources/js subdirectory and run npm install, then run npm run build
 
 ## DB Schema

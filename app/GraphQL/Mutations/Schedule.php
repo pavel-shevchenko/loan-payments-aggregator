@@ -28,7 +28,7 @@ class Schedule
         }
 
         $calcNamedArguments = [
-            'loanTermInMonths' => $args['loanTerm'],
+            'loanTermInMonths' => $args['loanTerm'] * 12,
             'dateForFirstMonth' => new \Datetime(),
             'loanAmount' => $args['loanAmount'],
             'interestRate' => $args['interestRate']

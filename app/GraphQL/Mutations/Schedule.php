@@ -42,10 +42,10 @@ class Schedule
         $loanPayments = [];
         while ($monthNumber++ < $args['loanTerm'] * 12) {
             $loanPayments[] = [
-                'monthlyPayment' => $calculator->monthlyPayment($monthNumber),
-                'interestDebtPay' => $calculator->interestDebtPayment($monthNumber),
-                'principalDebtPay' => $calculator->principalDebtPayment($monthNumber),
-                'monthlyLoanAmount' => $calculator->monthlyLoanAmount($monthNumber),
+                'monthlyPayment' => round($calculator->monthlyPayment($monthNumber), 2),
+                'interestDebtPay' => round($calculator->interestDebtPayment($monthNumber), 2),
+                'principalDebtPay' => round($calculator->principalDebtPayment($monthNumber), 2),
+                'monthlyLoanAmount' => round($calculator->monthlyLoanAmount($monthNumber), 2),
             ];
         }
 

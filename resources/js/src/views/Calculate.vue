@@ -1,7 +1,7 @@
 <template>
   <ion-header>
     <ion-toolbar>
-      <ion-title>Calculate</ion-title>
+      <ion-title>Calculation</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -20,7 +20,7 @@
         <ion-text color="primary">
           <h3>Loan amount</h3>
         </ion-text>
-        <p>{{ loanAmount }}</p>
+        <p>{{ currencyFormat(loanAmount) }}</p>
       </ion-label>
     </ion-item>
 
@@ -29,7 +29,7 @@
         <ion-text color="primary">
           <h3>Monthly payment</h3>
         </ion-text>
-        <p>{{ monthlyPayment }}</p>
+        <p>{{ type === 'differentiated' ? 'up to ' : '' }}{{ currencyFormat(monthlyPayment) }}</p>
       </ion-label>
     </ion-item>
   </ion-list>
@@ -41,12 +41,13 @@ import {
   watch,
   ref,
   Ref,
+  onMounted,
 } from 'vue';
 import {
   IonHeader,
+  IonList,
   IonItem,
   IonLabel,
-  IonList,
   IonText,
 } from '@ionic/vue';
 import { useMutation, useResult } from '@vue/apollo-composable';
@@ -64,6 +65,7 @@ export default defineComponent({
   },
   setup(props) {
     const monthlyPayment: Ref<number> = ref(0);
+    const payments: Ref = ref([]);
     // Use stored calculation parameters
     const {
       type,
@@ -71,18 +73,46 @@ export default defineComponent({
       loanAmount,
       loanTerm,
     } = useCalcParams();
+    // Redirect to input params route if the user went to the page directly
     const router = useRouter();
     if (!loanAmount.value) {
       router.push({ name: 'InputValues' });
     }
+    // Request full schedule list of loan payments
+    const { mutate: schedule } = useMutation(
+      calculateScheduleMutation, () => ({
+        variables: {
+          type: type.value,
+          interestRate: rate.value,
+          loanAmount: loanAmount.value,
+          loanTerm: loanTerm.value,
+        },
+      }),
+    );
+    onMounted(async () => {
+      const paymentsResult = await schedule();
+      payments.value = paymentsResult.data.schedule;
+    });
+    // Pick monthly payment on full payments list is loaded
+    watch(payments, () => {
+      monthlyPayment.value = Math.round(payments.value[0].monthlyPayment);
+    });
 
     return {
       monthlyPayment,
+      payments,
       type,
       rate,
       loanAmount,
       loanTerm,
     };
+  },
+  methods: {
+    // Helpers
+    currencyFormat: (currency: number): string => currency.toLocaleString(
+      undefined,
+      { minimumFractionDigits: 2 },
+    ),
   },
 });
 </script>

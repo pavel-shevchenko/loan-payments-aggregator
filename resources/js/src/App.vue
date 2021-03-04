@@ -1,10 +1,11 @@
 <template>
   <ion-page>
     <ion-content>
-      <keep-alive>
-        <router-view v-if="$route.meta.keepAlive"/>
-      </keep-alive>
-      <router-view v-if="!$route.meta.keepAlive"/>
+      <router-view v-slot="{ Component }">
+        <keep-alive include="InputValues">
+          <component :is="Component" :key="$route.fullPath"></component>
+        </keep-alive>
+      </router-view>
     </ion-content>
 
     <ion-segment @ionChange="pageChanged($event)" value="parameters">

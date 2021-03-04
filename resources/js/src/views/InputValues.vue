@@ -115,6 +115,7 @@ import getInitDataQuery from '../graphql/mortgage_aggregation.query.gql';
 import useCalcParams from '../use/calcParamsState';
 
 export default defineComponent({
+  name: 'InputValues',
   components: {
     IonHeader,
     IonItem,
@@ -162,21 +163,25 @@ export default defineComponent({
       purposeIndex.value = 0;
       selectedDiscountIndexes.value = [];
       ionToggleIsResetBugFix.value = true;
+      currMortgageOffer.value = mortgageOffers.value[typeIndex.value];
       setType(currMortgageOffer.value.type);
       costMin.value = currMortgageOffer.value.cost_min;
       costStep.value = currMortgageOffer.value.cost_step;
       costMax.value = currMortgageOffer.value.cost_max;
+      // Set the house cost knob in the middle
       costSelected.value = costMin.value + costStep.value * Math.floor(
         (costMax.value - costMin.value) / 2 / costStep.value,
       );
       initLoanMin.value = currMortgageOffer.value.init_loan_min;
       initLoanStep.value = currMortgageOffer.value.init_loan_step;
       initLoanMax.value = costSelected.value;
+      // Set the init loan knob in the middle
       initLoanSelected.value = initLoanMin.value + initLoanStep.value * Math.floor(
         (initLoanMax.value - initLoanMin.value) / 2 / initLoanStep.value,
       );
       loanTermMin.value = currMortgageOffer.value.term_min;
       loanTermMax.value = currMortgageOffer.value.term_max;
+      // Set the loan term knob in the middle
       loanTermSelected.value = loanTermMin.value
         + Math.floor((loanTermMax.value - loanTermMin.value) / 2);
     };
@@ -187,7 +192,6 @@ export default defineComponent({
     // Initialization after server response
     watch(banks, () => {
       mortgageOffers.value = banks.value[0].mortgageOffers;
-      currMortgageOffer.value = mortgageOffers.value[typeIndex.value];
       setDataAndDoMutations();
     });
     // Calculate overall discount function

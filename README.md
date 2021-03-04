@@ -10,13 +10,13 @@ Installation requires Composer and NPM.
 
 ## To install
 
-- Clone repository into webserver/application directory.
-- Run composer install from application directory.
-- Duplicate .env.example and rename copy to .env. Update configuration values as required.
-- Generate app key by running php artisan key:generate from application directory.
-- Install database tables by running php artisan migrate from application directory.
-- Then seeding the database by running php artisan db:seed command.
-- Go to resources/js subdirectory and run npm install, then run npm run build.
+- Clone repository into application directory and set subdirectory `public` as the root of the web server.
+- Run `composer install` from application directory.
+- Duplicate `.env.example` and rename copy to `.env`. Update configuration values as required.
+- Generate app key by running `php artisan key:generate` from application directory.
+- Install database tables by running `php artisan migrate` from application directory.
+- Then seeding the database by running `php artisan db:seed` command.
+- Go to the `resources/js` subdirectory and run the `npm install` command in it, then run `npm run build`. Congrats, the aggregator is now ready to go!
 
 ## DB Schema
 

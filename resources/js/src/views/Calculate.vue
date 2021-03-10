@@ -50,10 +50,9 @@ import {
   IonLabel,
   IonText,
 } from '@ionic/vue';
-import { useMutation, useResult } from '@vue/apollo-composable';
 import { useRouter, useRoute } from 'vue-router';
-import calculateScheduleMutation from '../graphql/payments_schedule.mutation.gql';
-import useCalcParams from '../use/calcParamsState';
+import useCalculation from '../use/calculationState';
+import useFormat from '../use/format';
 
 export default defineComponent({
   components: {
@@ -65,38 +64,31 @@ export default defineComponent({
   },
   setup(props) {
     const monthlyPayment: Ref<number> = ref(0);
-    const payments: Ref = ref([]);
-    // Use stored calculation parameters
+    // Use stored calculation parameters and schedule
     const {
       type,
       rate,
       loanAmount,
       loanTerm,
-    } = useCalcParams();
+      payments,
+      loadSchedule,
+    } = useCalculation();
+    // Use currency formatter
+    const { currencyFormat } = useFormat();
     // Redirect to input params route if the user went to the page directly
     const router = useRouter();
     if (!loanAmount.value) {
       router.push({ name: 'InputValues' });
     }
-    // Request full schedule list of loan payments
-    const { mutate: schedule } = useMutation(
-      calculateScheduleMutation, () => ({
-        variables: {
-          type: type.value,
-          interestRate: rate.value,
-          loanAmount: loanAmount.value,
-          loanTerm: loanTerm.value,
-        },
-      }),
-    );
-    onMounted(async () => {
-      const paymentsResult = await schedule();
-      payments.value = paymentsResult.data.schedule;
-    });
     // Pick monthly payment on full payments list is loaded
-    watch(payments, () => {
-      monthlyPayment.value = Math.round(payments.value[0].monthlyPayment);
-    });
+    const pickMonthlyPayment = () => {
+      if (payments.value.length > 0) {
+        monthlyPayment.value = Math.round(payments.value[0].monthlyPayment);
+      }
+    };
+    watch(payments, pickMonthlyPayment);
+    pickMonthlyPayment();
+    loadSchedule();
 
     return {
       monthlyPayment,
@@ -105,14 +97,8 @@ export default defineComponent({
       rate,
       loanAmount,
       loanTerm,
+      currencyFormat,
     };
-  },
-  methods: {
-    // Helpers
-    currencyFormat: (currency: number): string => currency.toLocaleString(
-      undefined,
-      { minimumFractionDigits: 2 },
-    ),
   },
 });
 </script>

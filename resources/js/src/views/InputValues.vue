@@ -112,7 +112,7 @@ import {
 } from '@ionic/vue';
 import { useQuery, useResult } from '@vue/apollo-composable';
 import getInitDataQuery from '../graphql/mortgage_aggregation.query.gql';
-import useCalcParams from '../use/calcParamsState';
+import useCalculation from '../use/calculationState';
 
 export default defineComponent({
   name: 'InputValues',
@@ -121,7 +121,6 @@ export default defineComponent({
     IonItem,
     IonLabel,
     IonList,
-    // IonListHeader,
     IonSelect,
     IonSelectOption,
     IonRange,
@@ -156,7 +155,7 @@ export default defineComponent({
       setRate,
       setLoanAmount,
       setLoanTerm,
-    } = useCalcParams();
+    } = useCalculation();
 
     // Set form data and do related mutations in the calc params store after change bank or type
     const setDataAndDoMutations = () => {
@@ -187,7 +186,9 @@ export default defineComponent({
     };
 
     // Request to the server
-    const { result } = useQuery(getInitDataQuery);
+    const { result } = useQuery(getInitDataQuery, null, {
+      fetchPolicy: 'cache-and-network',
+    });
     const banks: Ref = useResult(result, null, (response) => response.banks.data);
     // Initialization after server response
     watch(banks, () => {

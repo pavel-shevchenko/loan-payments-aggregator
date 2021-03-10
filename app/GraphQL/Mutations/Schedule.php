@@ -18,7 +18,7 @@ class Schedule
     public function __invoke($_, array $args)
     {
         $validator = \Validator::make($args, [
-            'type' => 'required|string|in:annuity,differentiated',
+            'type' => 'required|string|in:' . implode(',', config('app.loan_payment_types')),
             'interestRate' => 'required|numeric',
             'loanAmount' => 'required|integer',
             'loanTerm' => 'required|integer',
